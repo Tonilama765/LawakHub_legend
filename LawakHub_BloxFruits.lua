@@ -13,44 +13,91 @@ end)
 
 -- UI Framework
 local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))()
-local Window = OrionLib:MakeWindow({Name = "🌊 LawakHub | Blox Fruits", HidePremium = false, IntroText = "LawakHub Loading...", SaveConfig = true, ConfigFolder = "LawakHub"})
+local Window = OrionLib:MakeWindow({
+	Name = "🌊 LawakHub | Blox Fruits",
+	HidePremium = false,
+	IntroText = "LawakHub Loading...",
+	SaveConfig = true,
+	ConfigFolder = "LawakHub"
+})
+
+-- Variabel Umum
+getgenv().AutoFarm = false
+getgenv().FarmMode = "Fighting Style"
+getgenv().AutoBoss = false
+getgenv().SelectedBoss = "Saber Expert"
+getgenv().AutoChest = false
+getgenv().KillAura = false
 
 -- Main Tab
 local MainTab = Window:MakeTab({Name = "Main", Icon = "rbxassetid://6023426923", PremiumOnly = false})
 
-MainTab:AddButton({
-	Name = "Upgrade Race V2/V3/V4",
-	Callback = function()
-        -- Placeholder upgrade logic
-        print("Upgrade Race executed!")
-	end    
+MainTab:AddToggle({
+	Name = "Auto Farm Level",
+	Default = false,
+	Callback = function(Value)
+		getgenv().AutoFarm = Value
+		while getgenv().AutoFarm do
+			task.wait()
+			-- Farming logic here (placeholder)
+			print("[LawakHub] Farming dengan: " .. getgenv().FarmMode)
+		end
+	end
+})
+
+MainTab:AddDropdown({
+	Name = "Mode Serangan",
+	Default = "Fighting Style",
+	Options = {"Fighting Style", "Sword", "Fruit"},
+	Callback = function(Value)
+		getgenv().FarmMode = Value
+	end
 })
 
 MainTab:AddToggle({
-	Name = "Auto Haki",
-	Default = true,
+	Name = "Auto Farm Boss",
+	Default = false,
 	Callback = function(Value)
-		getgenv().AutoHaki = Value
-	end    
+		getgenv().AutoBoss = Value
+		while getgenv().AutoBoss do
+			task.wait()
+			print("[LawakHub] Farming Boss: " .. getgenv().SelectedBoss)
+			-- Logic serang boss (placeholder)
+		end
+	end
+})
+
+MainTab:AddDropdown({
+	Name = "Pilih Boss",
+	Default = "Saber Expert",
+	Options = {"Saber Expert", "Warden", "Swan", "Flamingo", "Ice Admiral"},
+	Callback = function(Value)
+		getgenv().SelectedBoss = Value
+	end
+})
+
+MainTab:AddButton({
+	Name = "Upgrade Race V2/V3/V4",
+	Callback = function()
+		print("Upgrade Race executed!")
+	end
 })
 
 MainTab:AddButton({
 	Name = "Selesaikan Quest Otomatis",
 	Callback = function()
-        -- Quest auto-logic here
-        print("Quest diselesaikan!")
-	end    
+		print("Quest diselesaikan!")
+	end
 })
 
--- Get Item Tab
+-- Item Tab
 local ItemTab = Window:MakeTab({Name = "Item & Raid", Icon = "rbxassetid://6031260798", PremiumOnly = false})
 
 ItemTab:AddButton({
 	Name = "Get Semua Item (Sword, Accessory)",
 	Callback = function()
-        -- Get item logic
-        print("Item didapatkan!")
-	end    
+		print("Item didapatkan!")
+	end
 })
 
 ItemTab:AddToggle({
@@ -58,7 +105,7 @@ ItemTab:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		getgenv().AutoChest = Value
-	end    
+	end
 })
 
 ItemTab:AddToggle({
@@ -66,7 +113,7 @@ ItemTab:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		getgenv().KillAura = Value
-	end    
+	end
 })
 
 -- Sea Event Tab
@@ -75,20 +122,19 @@ local SeaTab = Window:MakeTab({Name = "Sea Event", Icon = "rbxassetid://60310759
 SeaTab:AddButton({
 	Name = "Cek & Hadapi Sea Event",
 	Callback = function()
-        -- Sea event logic
-        print("Sea Event dicek/dimulai")
-	end    
+		print("Sea Event dicek/dimulai")
+	end
 })
 
--- Save Config Tab
+-- Pengaturan
 local SettingTab = Window:MakeTab({Name = "Pengaturan", Icon = "rbxassetid://6035047409", PremiumOnly = false})
 
 SettingTab:AddButton({
 	Name = "Save Konfigurasi",
 	Callback = function()
-        OrionLib:SaveConfig()
-        print("Config disimpan.")
-	end    
+		OrionLib:SaveConfig()
+		print("Config disimpan.")
+	end
 })
 
 OrionLib:Init()
