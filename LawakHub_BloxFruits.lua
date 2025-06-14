@@ -1,4 +1,4 @@
--- LawakHub_legend | Blox Fruits Script by Tonilama765
+-- LawakHub | Blox Fruits Script by Tonilama765
 
 -- Auto Haki Aktif
 pcall(function()
